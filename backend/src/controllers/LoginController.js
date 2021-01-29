@@ -24,14 +24,14 @@ module.exports = {
 
   async login(request, response) {
     const { id, password } = request.body;
-    const usuario = await connection("usuarios").where("id", id).select("*");
-    const pass = await connection("usuarios")
+    const usuario = await connection("usuarios")
       .where("id", id)
-      .select("password");
-    const validation = new Promise((resolve, reject) => {
-      resolve(pass === password);
+      .select("name", "email", "whatsapp");
+    const pass = await connection("usuarios").where("id", id).first("password");
+    let result = await new Promise((resolve, reject) => {
+      resolve(pass && pass.password === password);
     });
-
-    validation.then(response.json("certo"), response.json("errado"));
+    if (result) response.json(usuario);
+    else response.json("Senha Incorreta!");
   },
 };
