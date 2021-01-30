@@ -1,6 +1,6 @@
 const connection = require("../database/connection");
 const crypto = require("crypto");
-const { response } = require("express");
+
 
 module.exports = {
   async index(request, response) {
@@ -24,6 +24,7 @@ module.exports = {
 
   async login(request, response) {
     const { id, password } = request.body;
+    const token = crypto.randomBytes(8).toString("HEX");
     const usuario = await connection("usuarios")
       .where("id", id)
       .select("name", "email", "whatsapp");
@@ -31,7 +32,7 @@ module.exports = {
     let result = await new Promise((resolve, reject) => {
       resolve(pass && pass.password === password);
     });
-    if (result) response.json(usuario);
+    if (result) response.json([...usuario , {token}]);
     else response.json("Senha Incorreta!");
   },
 };
