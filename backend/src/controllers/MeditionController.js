@@ -10,7 +10,8 @@ module.exports={
 
     async create (request, response){
         const order_id = request.header.authorization;
-        const { data, hour, medition, temperature, bomb_state, employee } = request.body;
+        const user_id = request.header.authorization;
+        const { data, hour, medition, temperature, bomb_state } = request.body;
 
         const newMedition = await connection("meditions")
         .insert(
@@ -20,7 +21,7 @@ module.exports={
             medition, 
             temperature, 
             bomb_state, 
-            employee);
+            user_id);
             response.json(newMedition);
     },
 

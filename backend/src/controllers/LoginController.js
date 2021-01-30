@@ -14,9 +14,9 @@ module.exports = {
 
     await connection("usuarios").insert({
       id,
-      name,
       email,
       whatsapp,
+      name,
       password,
     });
     return response.json({ id });
