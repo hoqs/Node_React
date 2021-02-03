@@ -27,6 +27,6 @@ module.exports = {
   },
 
   async delete(request, response) {
-    await connection("meditions").delete("*");
+    // await connection("meditions").delete("*");
   },
 };

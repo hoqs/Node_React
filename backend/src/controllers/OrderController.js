@@ -3,8 +3,15 @@ const connection = require("../database/connection");
 module.exports = {
   async index(request, response) {
     const user_id = request.header.authorization;
+    const pass = await connection("usuarios").where("id", user_id).select("*");
     const showOrders = await connection("orders").select("*");
-    response.json(showOrders);
+
+    let result = await new Promise((resolve, reject) => {
+      resolve(pass === user_id);
+    });
+    console.log(pass);
+    if (result) response.json(showOrders);
+    else response.json("Usuario nao identificado.");
   },
 
   async create(request, response) {

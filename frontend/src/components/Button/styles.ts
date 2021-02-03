@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-interface Botao {
-  backgroundColor: string;
-}
-
-export const StyledButton = styled.button<Botao>`
+export const StyledButton = styled.button`
   border-radius: 15px;
   height: 50px;
   width: 50%;
@@ -13,7 +9,6 @@ export const StyledButton = styled.button<Botao>`
   outline: none;
   align-self: center;
   display: flex;
-  background-color: ${(p) => p.backgroundColor};
   :hover {
     cursor: pointer;
   }
